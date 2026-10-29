@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestra Boda · Valeria & Andrés</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* ===== RESET Y BASE ===== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --negro: #0d0d0d;
+    --blanco: #fafafa;
+    --gris: #6b6b6b;
+    --gris-claro: #e5e5e5;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--blanco);
+    color: var(--negro);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ===== CONTENEDOR PRINCIPAL ===== */
+  .invitacion {
+    max-width: 720px;
+    margin: 0 auto;
+    background: var(--blanco);
+    box-shadow: 0 0 60px rgba(0,0,0,0.08);
+  }
+
+  /* ===== PORTADA ===== */
+  .portada {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 30px;
+    position: relative;
+    background: var(--blanco);
+  }
+
+  .portada::before {
+    content: '';
+    position: absolute;
+    inset: 25px;
+    border: 1px solid var(--negro);
+    pointer-events: none;
+  }
+
+  .portada::after {
+    content: '';
+    position: absolute;
+    inset: 33px;
+    border: 1px solid rgba(0,0,0,0.25);
+    pointer-events: none;
+  }
+
+  .portada > * { position: relative; z-index: 1; }
+
+  .subtitulo-portada {
+    font-size: 0.7rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gris);
+    margin-bottom: 30px;
+    animation: fadeDown 1.4s ease both;
+  }
+
+  .nombres {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(3rem, 12vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    animation: fadeUp 1.6s ease 0.2s both;
+  }
+
+  .nombres .amp {
+    font-style: italic;
+    font-size: 0.55em;
+    display: block;
+    margin: 12px 0;
+    font-weight: 400;
+  }
+
+  .separador {
+    width: 60px;
+    height: 1px;
+    background: var(--negro);
+    margin: 35px auto;
+    animation: grow 1.6s ease 0.6s both;
+  }
+
+  .fecha-portada {
+    font-size: 0.95rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    animation: fadeUp 1.6s ease 0.8s both;
+  }
+
+  .lugar-portada {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--gris);
+    margin-top: 8px;
+    animation: fadeUp 1.6s ease 1s both;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 45px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gris);
+    animation: bounce 2.2s ease-in-out infinite;
+    z-index: 2;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 28px;
+    background: var(--negro);
+    margin: 10px auto 0;
+  }
+
+  /* ===== SECCIONES ===== */
+  section {
+    padding: 90px 35px;
+    text-align: center;
+    position: relative;
+  }
+
+  .etiqueta {
+    font-size: 0.68rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gris);
+    margin-bottom: 22px;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 7vw, 2.8rem);
+    margin-bottom: 30px;
+    letter-spacing: 0.02em;
+  }
+
+  p { color: var(--gris); font-size: 0.95rem; font-weight: 300; }
+
+  .texto-grande {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.25rem, 4vw, 1.6rem);
+    color: var(--negro);
+    line-height: 1.8;
+    font-weight: 400;
+  }
+
+  /* Línea decorativa entre secciones */
+  .divisor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 0 35px;
+  }
+
+  .divisor::before, .divisor::after {
+    content: '';
+    height: 1px;
+    flex: 1;
+    background: var(--gris-claro);
+  }
+
+  .divisor span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    color: var(--negro);
+  }
+
+  /* ===== FECHA / CONTADOR ===== */
+  .fecha-bloque {
+    background: var(--negro);
+    color: var(--blanco);
+  }
+
+  .fecha-bloque .etiqueta { color: rgba(255,255,255,0.55); }
+  .fecha-bloque h2 { color: var(--blanco); }
+  .fecha-bloque p { color: rgba(255,255,255,0.7); }
+
+  .fecha-numero {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 15vw, 5.5rem);
+    line-height: 1;
+    font-weight: 300;
+    margin: 10px 0;
+  }
+
+  .fecha-mes {
+    font-size: 0.85rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .fecha-dia {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .contador {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin-top: 45px;
+    flex-wrap: wrap;
+  }
+
+  .contador-item { min-width: 62px; }
+
+  .contador-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.1rem;
+    line-height: 1;
+    display: block;
+  }
+
+  .contador-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-top: 8px;
+    display: block;
+  }
+
+  /* ===== EVENTOS ===== */
+  .eventos { display: grid; gap: 55px; }
+
+  .evento-icono {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    display: block;
+    margin-bottom: 18px;
+  }
+
+  .evento h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.45rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .evento-hora {
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--negro);
+    margin-bottom: 10px;
+  }
+
+  .evento-lugar {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--negro);
+    margin-bottom: 6px;
+  }
+
+  .evento-dir { font-size: 0.85rem; }
+
+  /* ===== BOTÓN ===== */
+  .btn {
+    display: inline-block;
+    margin-top: 26px;
+    padding: 14px 42px;
+    border: 1px solid var(--negro);
+    color: var(--negro);
+    background: transparent;
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .btn:hover {
+    background: var(--negro);
+    color: var(--blanco);
+    letter-spacing: 0.45em;
+  }
+
+  /* ===== DRESS CODE ===== */
+  .dresscode {
+    background: var(--negro);
+    color: var(--blanco);
+  }
+
+  .dresscode .etiqueta { color: rgba(255,255,255,0.55); }
+  .dresscode h2 { color: var(--blanco); }
+  .dresscode p { color: rgba(255,255,255,0.7); }
+
+  .dresscode .texto-grande { color: var(--blanco); }
+
+  /* ===== RSVP ===== */
+  .rsvp form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 420px;
+    margin: 35px auto 0;
+    text-align: left;
+  }
+
+  .campo label {
+    display: block;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gris);
+    margin-bottom: 8px;
+  }
+
+  .campo input, .campo select, .campo textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid var(--gris-claro);
+    background: transparent;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    color: var(--negro);
+    outline: none;
+    transition: border-color 0.3s ease;
+    border-radius: 0;
+  }
+
+  .campo input:focus, .campo select:focus, .campo textarea:focus {
+    border-color: var(--negro);
+  }
+
+  .campo textarea { resize: vertical; min-height: 90px; }
+
+  .rsvp .btn { align-self: center; }
+
+  .mensaje-exito {
+    display: none;
+    margin-top: 25px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--negro);
+  }
+
+  /* ===== PIE ===== */
+  footer {
+    text-align: center;
+    padding: 70px 35px 50px;
+    background: var(--negro);
+    color: var(--blanco);
+  }
+
+  footer .iniciales {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    margin-bottom: 18px;
+  }
+
+  footer p {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  /* ===== ANIMACIONES ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes grow {
+    from { width: 0; opacity: 0; }
+    to { width: 60px; opacity: 1; }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 480px) {
+    section { padding: 70px 24px; }
+    .contador { gap: 20px; }
+    .portada::before { inset: 16px; }
+    .portada::after { inset: 23px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="invitacion">
+
+  <!-- ===== PORTADA ===== -->
+  <header class="portada">
+    <p class="subtitulo-portada">Nos casamos</p>
+    <h1 class="nombres">
+      Valeria
+      <span class="amp">&</span>
+      Andrés
+    </h1>
+    <div class="separador"></div>
+    <p class="fecha-portada">05 · 06 · 2027</p>
+    <p class="lugar-portada">Casona Los Robles · Puebla</p>
+    <div class="scroll-hint">Desliza</div>
+  </header>
+
+  <!-- ===== FRASE ===== -->
+  <section class="reveal">
+    <p class="etiqueta">Con la bendición de Dios y nuestros padres</p>
+    <p class="texto-grande">
+      “Hemos decidido unir nuestros caminos<br>
+      y celebrar el amor que nos encontró.”
+    </p>
+    <p style="margin-top:28px;">
+      Es un honor invitarte a compartir con nosotros<br>
+      el día más importante de nuestras vidas.
+    </p>
+  </section>
+
+  <div class="divisor"><span>✦</span></div>
+
+  <!-- ===== FECHA + CONTADOR ===== -->
+  <section class="fecha-bloque reveal">
+    <p class="etiqueta">Reserva la fecha</p>
+    <h2>Junio</h2>
+    <div class="fecha-numero">05</div>
+    <p class="fecha-mes">Sábado · 2027</p>
+    <p class="fecha-dia">Seis de la tarde</p>
+
+    <div class="contador" id="contador">
+      <div class="contador-item">
+        <span class="contador-num" id="dias">00</span>
+        <span class="contador-label">Días</span>
+      </div>
+      <div class="contador-item">
+        <span class="contador-num" id="horas">00</span>
+        <span class="contador-label">Horas</span>
+      </div>
+      <div class="contador-item">
+        <span class="contador-num" id="minutos">00</span>
+        <span class="contador-label">Minutos</span>
+      </div>
+      <div class="contador-item">
+        <span class="contador-num" id="segundos">00</span>
+        <span class="contador-label">Segundos</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CEREMONIA Y RECEPCIÓN ===== -->
+  <section class="reveal">
+    <p class="etiqueta">Itinerario</p>
+    <h2>Ceremonia & Recepción</h2>
+
+    <div class="eventos">
+      <div class="evento">
+        <span class="evento-icono">✝</span>
+        <h3>Ceremonia</h3>
+        <p class="evento-hora">6:00 PM</p>
+        <p class="evento-lugar">Catedral de la Inmaculada</p>
+        <p class="evento-dir">Calle 5 de Mayo 301, Centro · Puebla</p>
+        <a class="btn" href="https://maps.google.com" target="_blank" rel="noopener">Ver ubicación</a>
+      </div>
+
+      <div class="evento">
+        <span class="evento-icono">✦</span>
+        <h3>Recepción</h3>
+        <p class="evento-hora">8:00 PM</p>
+        <p class="evento-lugar">Casona Los Robles</p>
+        <p class="evento-dir">Camino a Cholula 850, San Andrés Cholula · Puebla</p>
+        <a class="btn" href="https://maps.google.com" target="_blank" rel="noopener">Ver ubicación</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divisor"><span>✦</span></div>
+
+  <!-- ===== DRESS CODE ===== -->
+  <section class="dresscode reveal">
+    <p class="etiqueta">Código de vestimenta</p>
+    <h2>Formal</h2>
+    <p class="texto-grande">Etiqueta rigurosa</p>
+    <p style="margin-top:20px;">
+      Te pedimos amablemente reservar el blanco<br>
+      y el negro absoluto para los novios.
+    </p>
+  </section>
+
+  <!-- ===== RSVP ===== -->
+  <section class="rsvp reveal">
+    <p class="etiqueta">Confirmación de asistencia</p>
+    <h2>¿Nos acompañas?</h2>
+    <p>Por favor confirma antes del 10 de mayo de 2027.</p>
+
+    <form id="form-rsvp">
+      <div class="campo">
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+      </div>
+
+      <div class="campo">
+        <label for="asistentes">Número de asistentes</label>
+        <select id="asistentes" name="asistentes" required>
+          <option value="" disabled selected>Selecciona una opción</option>
+          <option value="1">1 persona</option>
+          <option value="2">2 personas</option>
+          <option value="3">3 personas</option>
+          <option value="4">4 personas</option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="mensaje">Mensaje para los novios (opcional)</label>
+        <textarea id="mensaje" name="mensaje" placeholder="Déjanos unas palabras..."></textarea>
+      </div>
+
+      <button type="submit" class="btn">Confirmar asistencia</button>
+    </form>
+
+    <p class="mensaje-exito" id="exito">
+      ¡Gracias por confirmar! Nos alegra compartir este día contigo.
+    </p>
+  </section>
+
+  <!-- ===== PIE ===== -->
+  <footer>
+    <p class="iniciales">V & A</p>
+    <p>05 · 06 · 2027 · Puebla</p>
+  </footer>
+
+</div>
+
+<script>
+  /* ===== CONTADOR REGRESIVO ===== */
+  const fechaBoda = new Date('2027-06-05T18:00:00').getTime();
+
+  function actualizarContador() {
+    const ahora = new Date().getTime();
+    const diferencia = fechaBoda - ahora;
+
+    if (diferencia <= 0) {
+      document.getElementById('contador').innerHTML =
+        '<p style="color:#fff; letter-spacing:0.2em; text-transform:uppercase; font-size:0.8rem;">¡Hoy es el gran día!</p>';
+      return;
+    }
+
+    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+    document.getElementById('dias').textContent = String(dias).padStart(2, '0');
+    document.getElementById('horas').textContent = String(horas).padStart(2, '0');
+    document.getElementById('minutos').textContent = String(minutos).padStart(2, '0');
+    document.getElementById('segundos').textContent = String(segundos).padStart(2, '0');
+  }
+
+  actualizarContador();
+  setInterval(actualizarContador, 1000);
+
+  /* ===== ANIMACIÓN AL HACER SCROLL ===== */
+  const observador = new IntersectionObserver((entradas) => {
+    entradas.forEach((entrada) => {
+      if (entrada.isIntersecting) {
+        entrada.target.classList.add('visible');
+        observador.unobserve(entrada.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach((el) => observador.observe(el));
+
+  /* ===== FORMULARIO RSVP ===== */
+  document.getElementById('form-rsvp').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const nombre = document.getElementById('nombre').value.trim();
+    const asistentes = document.getElementById('asistentes').value;
+
+    if (!nombre || !asistentes) return;
+
+    console.log('Confirmación:', { nombre, asistentes, mensaje: document.getElementById('mensaje').value });
+
+    this.style.display = 'none';
+    document.getElementById('exito').style.display = 'block';
+  });
+</script>
+
+</body>
+</html>
